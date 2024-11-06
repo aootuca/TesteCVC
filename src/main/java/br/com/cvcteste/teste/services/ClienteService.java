@@ -31,20 +31,21 @@ public class ClienteService {
     @Transactional(propagation = Propagation.REQUIRED)
 	public void inserir(ClienteDto clienteDto) {
     	Integer nextId = clienteRepository.buscarNextId();
-		clienteRepository.inserir(nextId, clienteDto.getNome(), clienteDto.getEmail());
-		enderecoRepository.inserir(nextId, clienteDto.getRua(), clienteDto.getCidade(), clienteDto.getEstado());
+    	clienteRepository.inserir(nextId, clienteDto.getNome(), clienteDto.getEmail());
+    	enderecoRepository.inserir(nextId, clienteDto.getRua(), clienteDto.getCidade(), clienteDto.getEstado());
 	}
 
     @Transactional(propagation = Propagation.REQUIRED)	
     public void atualizar(ClienteDto clienteDto) {
-		clienteRepository.atualizar(clienteDto.getId(), clienteDto.getNome(), clienteDto.getEmail());
-		enderecoRepository.atualizar(clienteDto.getId(), clienteDto.getRua(), clienteDto.getCidade(), clienteDto.getEstado());
+    	clienteRepository.atualizar(clienteDto.getId(), clienteDto.getNome(), clienteDto.getEmail());
+    	enderecoRepository.atualizar(clienteDto.getId(), clienteDto.getRua(), clienteDto.getCidade(), clienteDto.getEstado());
 	}
 
     @Transactional(propagation = Propagation.REQUIRED)
 	public void excluir(Integer id) {
-		clienteRepository.excluir(id);
-		enderecoRepository.excluir(id);
+    	enderecoRepository.excluir(id);
+    	clienteRepository.excluir(id);
+		
 	}
 	
 	
