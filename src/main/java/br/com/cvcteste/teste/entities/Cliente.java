@@ -1,5 +1,7 @@
 package br.com.cvcteste.teste.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,8 +12,12 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "cliente")
@@ -25,6 +31,14 @@ public class Cliente {
 	private String nome;
 	@Column
 	private String email;
+	@Column
+	private String usuarioCriador;
+	@Column
+    private String usuarioAlteracao;
+	@Column
+	private LocalDateTime dataCriada;
+	@Column
+	private LocalDateTime dataAlterada;
 	
 	@OneToOne
 	@JoinColumn(name = "id", insertable = false, updatable = false)

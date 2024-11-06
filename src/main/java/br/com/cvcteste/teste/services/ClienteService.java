@@ -1,5 +1,6 @@
 package br.com.cvcteste.teste.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -31,13 +32,28 @@ public class ClienteService {
     @Transactional(propagation = Propagation.REQUIRED)
 	public void inserir(ClienteDto clienteDto) {
     	Integer nextId = clienteRepository.buscarNextId();
-    	clienteRepository.inserir(nextId, clienteDto.getNome(), clienteDto.getEmail());
+    	
+    	Cliente cliente = new Cliente();
+    	cliente.setId(nextId);
+    	cliente.setNome(clienteDto.getNome());
+    	cliente.setEmail(clienteDto.getEmail());
+    	cliente.setUsuarioCriador(null);
+    	cliente.setDataCriada(LocalDateTime.now());
+    	
+    	clienteRepository.inserir(cliente);
     	enderecoRepository.inserir(nextId, clienteDto.getRua(), clienteDto.getCidade(), clienteDto.getEstado());
 	}
 
     @Transactional(propagation = Propagation.REQUIRED)	
     public void atualizar(ClienteDto clienteDto) {
-    	clienteRepository.atualizar(clienteDto.getId(), clienteDto.getNome(), clienteDto.getEmail());
+    	Cliente cliente = new Cliente();
+    	cliente.setId(clienteDto.getId());
+    	cliente.setNome(clienteDto.getNome());
+    	cliente.setEmail(clienteDto.getEmail());
+    	cliente.setUsuarioAlteracao(null);
+    	cliente.setDataAlterada(LocalDateTime.now());
+    	
+    	clienteRepository.atualizar(cliente);
     	enderecoRepository.atualizar(clienteDto.getId(), clienteDto.getRua(), clienteDto.getCidade(), clienteDto.getEstado());
 	}
 

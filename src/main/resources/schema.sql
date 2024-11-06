@@ -4,6 +4,10 @@ CREATE TABLE cliente (
 	id INTEGER,
     nome varchar(50),
     email varchar(50),
+    usuario_criador varchar(50),
+    usuario_alteracao varchar(50),
+    data_criada TIMESTAMP,
+    data_alterada TIMESTAMP,
     constraint pk_cliente primary key(id)
 );
 
