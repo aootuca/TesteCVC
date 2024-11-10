@@ -1,5 +1,6 @@
 package br.com.cvcteste.teste.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +19,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/cliente")
 @RequiredArgsConstructor
 @Tag(name = "Controller do cliente", description = "Controller que faz as alterações nos dados dos clientes")
 public class ClienteController {
@@ -39,14 +40,14 @@ public class ClienteController {
 	@PostMapping
 	@Operation(description = "Inclui um cadastro de usuário")
 	public void inserir(
-			@Valid ClienteDto clienteDto) {
-		clienteService.inserir(clienteDto);
+			@Valid ClienteDto clienteDto, Principal principal) {
+		clienteService.inserir(clienteDto, principal.getName());
 	}
 	
 	@PatchMapping
 	@Operation(description = "Altera um cadastro existente")
-	public void alterar(@Valid ClienteDto clienteDto) {
-		clienteService.atualizar(clienteDto);
+	public void alterar(@Valid ClienteDto clienteDto, Principal principal) {
+		clienteService.atualizar(clienteDto, principal.getName());
 	}
 	
 	@DeleteMapping("{id}")

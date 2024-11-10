@@ -38,4 +38,11 @@ MINVALUE 1
 MAXVALUE 9999
 INCREMENT BY 1;
 
+DROP TABLE IF EXISTS usuario;
 
+CREATE TABLE usuario (
+	id INTEGER,
+	usuario VARCHAR(10),
+	password VARCHAR(10),
+	CONSTRAINT pk_usuario PRIMARY KEY(id)
+);

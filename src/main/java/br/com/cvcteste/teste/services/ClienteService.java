@@ -30,14 +30,14 @@ public class ClienteService {
 	}
 	
     @Transactional(propagation = Propagation.REQUIRED)
-	public void inserir(ClienteDto clienteDto) {
+	public void inserir(ClienteDto clienteDto, String username) {
     	Integer nextId = clienteRepository.buscarNextId();
     	
     	Cliente cliente = new Cliente();
     	cliente.setId(nextId);
     	cliente.setNome(clienteDto.getNome());
     	cliente.setEmail(clienteDto.getEmail());
-    	cliente.setUsuarioCriador(null);
+    	cliente.setUsuarioCriador(username);
     	cliente.setDataCriada(LocalDateTime.now());
     	
     	clienteRepository.inserir(cliente);
@@ -45,12 +45,12 @@ public class ClienteService {
 	}
 
     @Transactional(propagation = Propagation.REQUIRED)	
-    public void atualizar(ClienteDto clienteDto) {
+    public void atualizar(ClienteDto clienteDto, String username) {
     	Cliente cliente = new Cliente();
     	cliente.setId(clienteDto.getId());
     	cliente.setNome(clienteDto.getNome());
     	cliente.setEmail(clienteDto.getEmail());
-    	cliente.setUsuarioAlteracao(null);
+    	cliente.setUsuarioAlteracao(username);
     	cliente.setDataAlterada(LocalDateTime.now());
     	
     	clienteRepository.atualizar(cliente);
