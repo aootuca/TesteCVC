@@ -23,33 +23,20 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-/*	@Bean
-	protected SecurityFilterChain securityFilterChain(HttpSecurity http, CustomBasicAuthFilter customBasicAuthFilter) throws Exception {
-		http.authorizeHttpRequests(
-				authorizeConfig -> {
-					authorizeConfig.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-						.anyRequest().authenticated();
-				}
-		)
-		.sessionManagement((sessions) -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-		.addFilterBefore(customBasicAuthFilter, BasicAuthenticationFilter.class)
-		.csrf((csrf) -> csrf.disable());
-		
-		return http.build();
-	}
-*/
+
 	private final CustomAuthenticationProvider customAuthenticationProvider;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((authorize) -> 
-				authorize.requestMatchers(PathRequest.toH2Console()).permitAll()
+		http.authorizeHttpRequests((authorize) -> authorize
+				.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "swagger-ui.html").permitAll()
+				.requestMatchers(PathRequest.toH2Console()).permitAll()
 				.anyRequest().authenticated()
 			).headers(header -> 
 				header.frameOptions(frameOption -> 
 					frameOption.sameOrigin())
 			).csrf(AbstractHttpConfigurer::disable)
-		.formLogin(Customizer.withDefaults());
+		.httpBasic(Customizer.withDefaults());
 
 		return http.build();
 	}

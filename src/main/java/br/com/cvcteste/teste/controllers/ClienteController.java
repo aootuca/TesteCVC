@@ -14,12 +14,14 @@ import br.com.cvcteste.teste.dto.ClienteDto;
 import br.com.cvcteste.teste.entities.Cliente;
 import br.com.cvcteste.teste.services.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/cliente")
+@SecurityRequirement(name = "basicAuth")
 @RequiredArgsConstructor
 @Tag(name = "Controller do cliente", description = "Controller que faz as alterações nos dados dos clientes")
 public class ClienteController {
